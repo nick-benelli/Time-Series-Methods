@@ -1,7 +1,13 @@
 
 
 from statsmodels.tsa.stattools import adfuller
-
+"""
+## Stationarity
+- A Time Series is said to be stationary if its statistical properties such as mean, variance remain constant over time.
+- Most of the Time Series models work on the assumption that the TS is stationary. Major reason for this is that there are many ways in which a series can be non-stationary, but only one way for stationarity.
+- Intuitively, we can say that if a Time Series has a particular behaviour over time, there is a very high probability that it will follow the same in the future. 
+- Also, the theories related to stationary series are more mature and easier to implement as compared to non-stationary series.
+"""
 
 def null_hypothesis_result(p_value):
     if p_value < 0.05:
