@@ -25,33 +25,30 @@ def set_train_val_data(train_data, tr_iloc_idxs, val_iloc_idxs):
     return data_tr, data_val
 
 
-def forecast_model(model, test_data, df_exog_test=None):
-    # Forecast
-    forecast_steps = len(test_data)
+def fit_sarimax_model(data, exog=None, order=None, seasonal_order=None):
+    """
+    Fit SARIMAX model.
 
-    #data_pred_k = model.forecast(forecast_steps)
-    #data_pred_k.index = data_val_k.index
+    Parameters:
+    - data: Time series data for training.
+    - exog: Exogenous variables.
+    - order: SARIMAX order.
+    - seasonal_order: SARIMAX seasonal order.
 
-    fcast = model.get_forecast(steps=forecast_steps, exog=df_exog_test)
-    data_pred = fcast.predicted_mean
-    ci = fcast.conf_int()
-    ci.index = test_data.index
-    fcast.ci = ci
-    fcast.data_pred = data_pred
-    fcast.pred_vals = data_pred.values
-    return fcast
-
-
-def get_sarima_model_name(order, seasonal_order):
-    my_order_str = str(order).replace(' ', '')
-    my_seasonal_order_str = str(seasonal_order[0:3]).replace(' ', '')
-    season = seasonal_order[3]
-
-    model_name = f"SARIMA{my_order_str}x{my_seasonal_order_str}[{season}]"
-    return model_name
+    Returns:
+    - Fitted SARIMAX model.
+    """
+    model_result = SARIMAX(data, exog=exog, order=order, seasonal_order=seasonal_order).fit()
+    return model_result
 
 
-def fit_SARIMAX_model(order, seasonal_order, train_data, k, tr_idxs, val_idxs, df_exog=None):
+
+    
+
+
+
+
+def     (order, seasonal_order, train_data, k, tr_idxs, val_idxs, df_exog=None):
     
     model_name = get_sarima_model_name(order, seasonal_order)
 
@@ -100,7 +97,7 @@ def fit_SARIMAX_model(order, seasonal_order, train_data, k, tr_idxs, val_idxs, d
 
 
 def build_model_acc_metrics(model, test_data):
-    
+
     
 
     
