@@ -4,13 +4,14 @@ from sklearn.model_selection import TimeSeriesSplit
 
 from .evaluator import SARIMAXEvaluator
 from .forecaster import forecast_model
+from ..k_folds_split import k_folds_split
 
 
 
 
 def fit_sarimax_k_fold(time_series, my_order, my_seasonal_order, n_splits=3, exog=None):
 
-    train_idx_list, val_idx_list = k_fold_split(time_series, n_splits)
+    train_idx_list, val_idx_list = k_folds_split(time_series, n_splits)
 
     df_X = pd.DataFrame(time_series)
     #k = 0
@@ -65,20 +66,3 @@ def fit_sarimax_k_fold(time_series, my_order, my_seasonal_order, n_splits=3, exo
         return current_model_results, acc_dict
 
 
-def k_fold_split(time_series, n_splits=3, print_result=False):
-    tss = TimeSeriesSplit(n_splits = n_splits)
-    print(tss)
-
-    train_idx_list = []
-    val_idx_list = []
-    for i, (train_index, test_index) in enumerate(tss.split(time_series)):
-        if print_result:
-            print(f"Fold {i}:")
-            print(f"  Train: index={train_index.shape}")
-            print(f"  Val:  index={test_index.shape}")
-        train_idx_list.append(train_index)
-        val_idx_list.append(test_index)
-
-    if print_result:
-        print("Trian Val Idx Lengths:", len(train_idx_list), len(val_idx_list))
-    return train_idx_list, val_idx_list

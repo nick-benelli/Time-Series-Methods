@@ -6,7 +6,7 @@ import pandas as pd
 - The time series is hence not stationary
 """
 
-def calc_and_plot_rolling_mean_and_std(time_series, window, show_plot=True, color=None, linewidth=None, title=None) -> (pd.Series, pd.Series):
+def calc_and_plot_rolling_mean_and_std(time_series, window=4, show_plot=True, color=None, linewidth=None, title=None) -> (pd.Series, pd.Series):
     """
     ### Plotting Rolling Statistics
     - We observe that the rolling mean and Standard deviation are not constant with respect to time (increasing trend)

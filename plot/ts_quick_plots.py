@@ -18,7 +18,7 @@ colors = [
   "#810f7c"
   ] # old color: #e5ae38, new color: #6d904f
 
-def plot_ts_acf_pacf(data, x_label=None, y_label= None, title= None, color_plot = '#30a2da', lags=40):
+def plot_ts_acf_pacf(data, x_label=None, y_label= None, title= None, color_plot = None, lags=40):
   '''
   Plot Time Series ACF and PCF
   '''

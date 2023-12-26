@@ -2,9 +2,8 @@ import numpy as np
 import pandas as pd
 import flatdict
 
-import accuracy
-import my_sarimax.forecaster as forecaster
-from . import model_namer
+from .. import accuracy
+from . import model_namer, forecaster
 
 
 class SARIMAXEvaluator():
@@ -21,14 +20,17 @@ class SARIMAXEvaluator():
 
     
     def get_fitted_values(self):
+        # sarimax model fitted vals
         fittvals0 = self.model_result.fittedvalues
 
+        # Model integrations
         order = self.model_result.model.order
         seasonal_order  = self.model_result.model.seasonal_order
         season = seasonal_order[3]
-        I = seasonal_order[1]
+        season_i = seasonal_order[1]
 
-        seas_diff_fitted = fittvals0.iloc[(I*season): ]
+        # differentiate model
+        seas_diff_fitted = fittvals0.iloc[(season_i*season): ]
         diff_fitted = seas_diff_fitted.iloc[order[1]:]
         return diff_fitted
     
@@ -36,21 +38,14 @@ class SARIMAXEvaluator():
     def get_train_data(self):
         original_data_vals = self.model_result.model.endog
         original_index = self.model_result.model.data.row_labels
-        columns = [ self.model.endog_names]
+        if type(self.model.endog_names) is list:
+            columns =  self.model.endog_names
+        else:
+            columns = [ self.model.endog_names]
         return pd.DataFrame(original_data_vals, index= original_index, columns=columns)
     
 
     def forecast_model(self, steps =None,exog=None):
-        """
-        Forecast using a fitted SARIMAX model.
-
-        Parameters:
-        - steps: Number of steps to forecast.
-        - exog: exogenous validation data
-
-        Returns:
-        - fcast = model.get_forecast()
-        """
         fcast = forecaster.forecast_model(self.model_result, steps, exog)
         return fcast
 
@@ -81,11 +76,13 @@ class SARIMAXEvaluator():
         return acc_dict
     
 
-    def train_and_test_accurcy_metrics(self, test_true_data, test_exog_data=None, print_result= False):
+    def train_and_test_accurcy_metrics(self, test_true_data, test_exog_data=None, print_result= False, flatten_map=False, delimiter= '.'):
         model_accuracy_map = {
             'train' : self.get_model_train_accuracy(print_result),
             'test' : self.get_model_test_accuracy(test_true_data, test_exog_data, print_result)
         }
+        if flatten_map:
+            model_accuracy_map = self.flatten_acc_maps(model_accuracy_map, delimiter)
         return model_accuracy_map
 
 
