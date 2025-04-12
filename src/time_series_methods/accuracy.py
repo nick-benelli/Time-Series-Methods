@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.metrics import r2_score
 
 
-def find_prediction_acc(y_pred, y_true, print_result=True):
+def calculate_prediction_acc(y_pred, y_true, print_result=True):
     try:
         y_pred = y_pred.values
         y_true = y_true.values
