@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def aggregate_weekly_data(
-    data, metric_name, datetime_name="date", method="sum"
+    data : pd.Series, metric_name : str, datetime_name : str ="date", method : str="sum"
 ) -> pd.DataFrame:
     """
     Takes a time series daily values and aggregates them to weekly

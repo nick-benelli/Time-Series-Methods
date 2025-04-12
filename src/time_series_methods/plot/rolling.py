@@ -10,7 +10,7 @@ import pandas as pd
 
 def calc_and_plot_rolling_mean_and_std(
     time_series, window=4, show_plot=True, color=None, linewidth=None, title=None
-) -> (pd.Series, pd.Series):
+) -> tuple[pd.Series, pd.Series]:
     """
     ### Plotting Rolling Statistics
     - We observe that the rolling mean and Standard deviation are not constant with respect to time (increasing trend)

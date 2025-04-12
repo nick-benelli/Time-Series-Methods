@@ -1,9 +1,10 @@
 import pprint
 import numpy as np
+import pandas as pd
 from sklearn.metrics import r2_score
 
 
-def calculate_prediction_acc(y_pred, y_true, print_result=True):
+def calculate_prediction_acc(y_pred : pd.Series, y_true  : pd.Series, print_result : bool=True):
     try:
         y_pred = y_pred.values
         y_true = y_true.values

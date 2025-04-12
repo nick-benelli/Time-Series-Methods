@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def average_time_series_by_county(df_county, metric_column_name="arithmetic_mean"):
+def average_time_series_by_county(df_county : pd.DataFrame, metric_column_name : str ="arithmetic_mean"):
     """
     Average time series data from multiple monitoring sites
     Inputs:
