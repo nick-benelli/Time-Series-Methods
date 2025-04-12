@@ -28,3 +28,4 @@ TestResults.xml
 
 **/__py_cache__/**
 
+.DS_Store
